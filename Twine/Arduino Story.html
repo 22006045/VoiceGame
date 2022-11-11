@@ -1,0 +1,115 @@
+<tw-storydata name="História 1" startnode="3" creator="Twine" creator-version="2.5.1" format="SugarCube" format-version="2.36.1" ifid="D9698225-FF62-4186-9C14-A17FFB933AB0" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">window.arduino = {}
+window.arduino.f = []
+window.arduino.waitFor = function(arr){
+   arr.map(([event, passage]) => {
+   	 console.log(event, passage);
+     window.arduino.f.push({event, passage})
+   })
+}
+
+function run(event){
+  console.log('event', event);
+  var clean = false;
+  var passage = undefined
+  
+  window.arduino.f.forEach(function(conf){
+    if(conf.event == event){
+      clean = true;
+	  passage = conf.passage;
+    }  
+  })
+  
+  if(clean) {
+    window.arduino.f = []
+  }
+  
+  if(passage)
+    Engine.play(passage, true);
+}
+
+var button = document.createElement('button')
+
+button.style.position = 'absolute';
+button.style.bottom = '0';
+button.style.right = '0';
+button.innerHTML = 'Start'
+document.body.appendChild(button)
+
+
+button.addEventListener('click', () => {
+  navigator.serial.requestPort().then(async (port) => {
+    // Connect to `port` or add it to the list of available ports.
+    console.log(port)
+    readData(port)
+  }).catch((e) => {
+    // The user didn't select a port.
+    console.warn('no port selected')
+  });
+});
+
+
+
+    async function readData(port) {
+      console.log('reading data from ',  port, port.readable)
+
+      await port.open({ baudRate: 9600 });
+      
+      while (port.readable) {
+        const reader = port.readable.getReader();
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+              // |reader| has been canceled.
+              break;
+            }
+
+            const strValue = (new TextDecoder()).decode(value)
+            console.log(strValue)
+			run(strValue.replace('\r', '').replace('\n', ''))
+          }
+        } catch (error) {
+          // Handle |error|...
+        } finally {
+          reader.releaseLock();
+        }
+      }
+    }
+
+/*
+document.addEventListener('keydown', function(event){
+  run(event.key)
+})
+*/
+
+
+setTimeout(function(){
+ SugarCube.UIBar.destroy()
+}, 100)
+
+</script><tw-passagedata pid="1" name="A" tags="" position="325,425" size="100,100">A
+
+&lt;&lt;script&gt;&gt;
+console.log(&#39;init A&#39;);
+window.arduino.waitFor([
+	[&#39;A&#39;, &#39;Cima&#39;],
+	[&#39;B&#39;, &#39;Baixo&#39;],
+])
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Cima" tags="" position="550,250" size="100,100">CIMA
+
+&lt;&lt;script&gt;&gt;
+console.log(&#39;init cima&#39;);
+window.arduino.waitFor([
+	[&#39;A&#39;, &#39;Cima&#39;],
+	[&#39;B&#39;, &#39;Baixo&#39;],
+])
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Baixo" tags="" position="700,425" size="100,100">BAIXO
+
+&lt;&lt;script&gt;&gt;
+console.log(&#39;init baixo&#39;);
+window.arduino.waitFor([
+	[&#39;A&#39;, &#39;Cima&#39;],
+	[&#39;B&#39;, &#39;Baixo&#39;],
+])
+&lt;&lt;/script&gt;&gt;</tw-passagedata></tw-storydata>
+
