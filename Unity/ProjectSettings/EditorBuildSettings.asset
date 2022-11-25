@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/CenasPedro/Game.unity
+    guid: 5c6bae37c3b5a8f4291b4f0427ef3963
   m_configObjects: {}
