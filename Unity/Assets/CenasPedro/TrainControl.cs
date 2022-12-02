@@ -16,7 +16,7 @@ public class TrainControl : MonoBehaviour
         right
     }
 
-    private TrainPos trainPos;
+    public TrainPos trainPos;
 
     public enum Forms
     {

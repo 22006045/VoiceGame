@@ -13,11 +13,11 @@ public class VoiceRec : MonoBehaviour
 
     private void Start()
     {
-        trainControl = GetComponent<TrainControl>();
+        trainControl = FindObjectOfType<TrainControl>();
         GameObject player = GameObject.Find("Player");
         actions.Add("Sphere", Sphere);
-        actions.Add("Square", Cube);
-        actions.Add("Cilinder", Cylinder);
+        actions.Add("Cube", Cube);
+        actions.Add("Cylinder", Cylinder);
         actions.Add("Red", Red);
         actions.Add("Yellow", Yellow);
         actions.Add("Blue", Blue);
@@ -36,6 +36,7 @@ public class VoiceRec : MonoBehaviour
 
     private void Sphere()
     {
+        Debug.Log("TransformToSphere");
         trainControl.forms = TrainControl.Forms.sphere;
     }
     private void Cube()
@@ -48,14 +49,14 @@ public class VoiceRec : MonoBehaviour
     }
     private void Red()
     {
-        
+        trainControl.trainPos = TrainControl.TrainPos.midle;
     }
     private void Yellow()
     {
-        
+        trainControl.trainPos = TrainControl.TrainPos.right;
     }
     private void Blue()
     {
-        
+        trainControl.trainPos = TrainControl.TrainPos.left;
     }
 }
