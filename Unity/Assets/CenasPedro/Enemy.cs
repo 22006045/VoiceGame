@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     {
         int rnd = Random.Range(0, meshFilters.Length);
 
-        if(rnd == 0) GoToCubo();
+        if(rnd == 0) GoTocube();
         else if(rnd == 1) GoToSphere();
         else if(rnd == 2) GoToCylinder();
     }
@@ -27,15 +27,15 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public void GoToCubo()
+    public void GoTocube()
     {
-        forms = TrainControl.Forms.cubo;
+        forms = TrainControl.Forms.cube;
         GetComponent<MeshFilter>().sharedMesh = meshFilters[0].sharedMesh;
     }
 
     public void GoToSphere()
     {
-        forms = TrainControl.Forms.esfera;
+        forms = TrainControl.Forms.sphere;
         GetComponent<MeshFilter>().sharedMesh = meshFilters[1].sharedMesh;
     }
 

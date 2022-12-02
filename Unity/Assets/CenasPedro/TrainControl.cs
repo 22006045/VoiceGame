@@ -20,11 +20,11 @@ public class TrainControl : MonoBehaviour
 
     public enum Forms
     {
-        esfera,
-        cubo,
+        sphere,
+        cube,
         cylinder
     }
-    private Forms forms;
+    public Forms forms;
     [SerializeField] private MeshFilter[] meshFilters;
     [SerializeField] private MeshFilter mesh;
 
@@ -35,7 +35,7 @@ public class TrainControl : MonoBehaviour
     void Start()
     {
         trainPos = TrainPos.midle;
-        forms = Forms.cubo;
+        forms = Forms.cube;
 
         atualPosX = posXLineMidle;
     }
@@ -50,7 +50,7 @@ public class TrainControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.S)) GoToMid();
         if(Input.GetKeyDown(KeyCode.D)) GoToRight();
 
-        if(Input.GetKeyDown(KeyCode.Q)) GoToCubo();
+        if(Input.GetKeyDown(KeyCode.Q)) GoTocube();
         if(Input.GetKeyDown(KeyCode.W)) GoToSphere();
         if(Input.GetKeyDown(KeyCode.E)) GoToCylinder();
     }
@@ -77,11 +77,11 @@ public class TrainControl : MonoBehaviour
 
     private void UpdateForm()
     {
-        if(forms == Forms.cubo)
+        if(forms == Forms.cube)
         {
             mesh.sharedMesh = meshFilters[0].sharedMesh;
         }
-        else if(forms == Forms.esfera)
+        else if(forms == Forms.sphere)
         {
             mesh.sharedMesh = meshFilters[1].sharedMesh;
         }
@@ -107,14 +107,14 @@ public class TrainControl : MonoBehaviour
     }
 
 
-    public void GoToCubo()
+    public void GoTocube()
     {
-        forms = Forms.cubo;
+        forms = Forms.cube;
     }
 
     public void GoToSphere()
     {
-        forms = Forms.esfera;
+        forms = Forms.sphere;
     }
 
     public void GoToCylinder()
