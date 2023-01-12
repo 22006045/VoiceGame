@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class ShootCube : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Transform shootPos;
+    private float bulletSpeed;
+    private float timeBetweenShots;
+
+    private void Start() => StartCoroutine(ShootForward(timeBetweenShots));
+    private IEnumerator ShootForward(float nextShot)
     {
-        
+        GameObject b = Instantiate(bullet, shootPos.position, shootPos.rotation) as GameObject;
+        b.GetComponent<RigidBody>.AddF(shootPos.forward * bulletSpeed, ForceMode.Impulse);
+        StartCoroutine(DestroyBullet(b,10f ));
+        yield return new WaitForSeconds(nextShot);
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator DestroyBullet(GameObject bullet , float bulletDuration)
     {
-        
+        Destroy(bullet, bulletDuration);
+        yield return null;
     }
+
 }
