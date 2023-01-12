@@ -8,6 +8,10 @@ public class TrainControl : MonoBehaviour
     [SerializeField] private float speed; 
     [SerializeField] private float posXLineLeft, posXLineMidle, posXLineRight;
     private float atualPosX;
+    [SerializeField] private AudioSource dieSound;
+    [SerializeField] private AudioSource scoreSound;
+    [SerializeField] private ParticleSystem dieParticles;
+    [SerializeField] private ParticleSystem scoreParticles;
 
     public enum TrainPos
     {
@@ -126,6 +130,7 @@ public class TrainControl : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
+        Debug.Log("teste");
         if(other.gameObject.tag == "enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -133,11 +138,15 @@ public class TrainControl : MonoBehaviour
             if(enemy.forms == forms)
             {
                 scoreControl.Score += Random.Range(2, 5);
+                scoreSound.Play();
+                scoreParticles.Play();
                 Destroy(other.gameObject);
             }
             else
             {
                 // DIES
+                dieSound.Play();
+                dieParticles.Play();
                 StartCoroutine("Dead");
                 DeadAnimation.SetActive(true);
             }
