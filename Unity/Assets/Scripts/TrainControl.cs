@@ -131,6 +131,11 @@ public class TrainControl : MonoBehaviour
     private void OnCollisionEnter(Collision other) 
     {
         Debug.Log("teste");
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
         if(other.gameObject.tag == "enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -141,6 +146,7 @@ public class TrainControl : MonoBehaviour
                 scoreSound.Play();
                 scoreParticles.Play();
                 Destroy(other.gameObject);
+                
             }
             else
             {
@@ -151,10 +157,7 @@ public class TrainControl : MonoBehaviour
                 DeadAnimation.SetActive(true);
             }
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
         if(other.tag == "score")
         {
             scoreControl.Score += 1;

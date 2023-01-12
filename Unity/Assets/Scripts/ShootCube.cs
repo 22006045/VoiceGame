@@ -6,15 +6,15 @@ public class ShootCube : MonoBehaviour
 {
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform shootPos;
-    private float bulletSpeed;
-    private float timeBetweenShots;
+    [SerializeField ]private float bulletSpeed;
+    [SerializeField] private float timeBetweenShots;
 
     private void Start() => StartCoroutine(ShootForward(timeBetweenShots));
     private IEnumerator ShootForward(float nextShot)
     {
         GameObject b = Instantiate(bullet, shootPos.position, shootPos.rotation) as GameObject;
         b.GetComponent<Rigidbody>().AddForce(shootPos.forward * bulletSpeed, ForceMode.Impulse);
-        StartCoroutine(DestroyBullet(b,10f ));
+        StartCoroutine(DestroyBullet(b,10f));
         yield return new WaitForSeconds(nextShot);
     }
 
