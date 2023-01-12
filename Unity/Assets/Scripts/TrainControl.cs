@@ -10,8 +10,14 @@ public class TrainControl : MonoBehaviour
     private float atualPosX;
     [SerializeField] private AudioSource dieSound;
     [SerializeField] private AudioSource scoreSound;
+    [SerializeField] private AudioSource movementSound;
+    [SerializeField] private AudioSource transformSound;
     [SerializeField] private ParticleSystem dieParticles;
     [SerializeField] private ParticleSystem scoreParticles;
+    [SerializeField] private ParticleSystem[] textParticles;
+    [SerializeField] private ParticleSystem transformParticles;
+
+    [SerializeField] private CartoonFX.CFXR_ParticleText particleTextScript;
 
     public enum TrainPos
     {
@@ -99,32 +105,53 @@ public class TrainControl : MonoBehaviour
 
     public void GoToLeft()
     {
+        if(trainPos != TrainPos.left)
+            movementSound.Play();
         trainPos = TrainPos.left;
     }
 
     public void GoToMid()
     {
+        if(trainPos != TrainPos.midle)
+            movementSound.Play();
         trainPos = TrainPos.midle;
     }
 
     public void GoToRight()
     {
+        if(trainPos != TrainPos.right)
+            movementSound.Play();
         trainPos = TrainPos.right;
     }
 
 
     public void GoTocube()
     {
+        if(forms != Forms.cube)
+        {
+            transformParticles.Play();
+            transformSound.Play();
+        }
         forms = Forms.cube;
     }
 
     public void GoToSphere()
     {
+        if(forms != Forms.sphere)
+        {
+            transformParticles.Play();
+            transformSound.Play();
+        }
         forms = Forms.sphere;
     }
 
     public void GoToCylinder()
     {
+        if(forms != Forms.cylinder)
+        {
+            transformParticles.Play();
+            transformSound.Play();
+        }
         forms = Forms.cylinder;
     }
 
@@ -142,9 +169,12 @@ public class TrainControl : MonoBehaviour
 
             if(enemy.forms == forms)
             {
-                scoreControl.Score += Random.Range(2, 5);
+                int newScore = Random.Range(2, 5);
+                scoreControl.Score += newScore;
                 scoreSound.Play();
                 scoreParticles.Play();
+                int randomChoice = Random.Range(0,3);
+                textParticles[randomChoice].Play();
                 Destroy(other.gameObject);
                 
             }
