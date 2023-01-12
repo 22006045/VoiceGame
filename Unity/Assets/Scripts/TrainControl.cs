@@ -31,6 +31,8 @@ public class TrainControl : MonoBehaviour
 
     [SerializeField] private ScoreControl scoreControl;
 
+    [SerializeField] private GameObject DeadAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,7 +137,9 @@ public class TrainControl : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("Game");
+                // DIES
+                StartCoroutine("Dead");
+                DeadAnimation.SetActive(true);
             }
         }
     }
@@ -146,5 +150,11 @@ public class TrainControl : MonoBehaviour
         {
             scoreControl.Score += 1;
         }
+    }
+
+    private IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(0.85f);
+        SceneManager.LoadScene("Dead");
     }
 }

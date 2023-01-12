@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    private float currentSpeed = 20f;
+    private float maxSpeed = 100f;
+    private float minSpeed = 6.5f;
+    private float time ;
+    private float accelerationTime = 60;
     
     [SerializeField] private MeshFilter[] meshFilters;
 
     public TrainControl.Forms forms;
 
+    private string difficulty;
+
     // Start is called before the first frame update
     void Start()
     {
+        difficulty = MainMenu.difficulty;
         int rnd = Random.Range(0, meshFilters.Length);
 
         if(rnd == 0) GoTocube();
@@ -23,7 +30,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * -speed * Time.deltaTime;
+        currentSpeed = Mathf.SmoothStep(minSpeed, maxSpeed, time / accelerationTime );
+        transform.position += transform.forward * -currentSpeed * Time.deltaTime;
+        time += Time.deltaTime;
     }
 
 

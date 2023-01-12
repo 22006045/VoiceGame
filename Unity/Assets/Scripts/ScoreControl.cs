@@ -7,10 +7,12 @@ public class ScoreControl : MonoBehaviour
 {
     public int Score {get; set;}
     [SerializeField] private TextMeshProUGUI text;
+    public static int finalScore;
 
     // Start is called before the first frame update
     void Start()
     {
+        Score = 0;
         UpdateUI();
     }
 
@@ -18,6 +20,7 @@ public class ScoreControl : MonoBehaviour
     void Update()
     {
         UpdateUI();
+        finalScore = Score;
     }
 
     private void UpdateUI()

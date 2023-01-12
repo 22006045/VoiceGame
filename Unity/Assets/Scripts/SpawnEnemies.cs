@@ -9,11 +9,11 @@ public class SpawnEnemies : MonoBehaviour
     [SerializeField] private float[] possiblePosX;
     private float time;
 
-
+    private string difficulty;
     // Start is called before the first frame update
     void Start()
     {
-        
+        difficulty = MainMenu.difficulty;
     }
 
     // Update is called once per frame
