@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float currentSpeed = 20f;
-    private float maxSpeed = 100f;
-    private float minSpeed = 6.5f;
+    private float currentSpeed = 6.5f;
     private float time ;
     private float accelerationTime = 60;
     
@@ -20,6 +18,12 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         difficulty = MainMenu.difficulty;
+        if(difficulty == "easy")
+            currentSpeed = 5f;
+        else if(difficulty == "medium")
+            currentSpeed = 8f;
+        else if(difficulty == "hard")
+            currentSpeed = 12f;
         int rnd = Random.Range(0, meshFilters.Length);
 
         if(rnd == 0) GoTocube();
@@ -30,9 +34,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentSpeed = Mathf.SmoothStep(minSpeed, maxSpeed, time / accelerationTime );
         transform.position += transform.forward * -currentSpeed * Time.deltaTime;
-        time += Time.deltaTime;
     }
 
 

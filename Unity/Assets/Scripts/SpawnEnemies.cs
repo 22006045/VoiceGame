@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnEnemies : MonoBehaviour
 {
     [SerializeField] private GameObject prefab;
-    [SerializeField] private float timeMaxForSpawn;
+    private float timeMaxForSpawn = 5f;
     [SerializeField] private float[] possiblePosX;
     private float time;
 
@@ -14,6 +14,12 @@ public class SpawnEnemies : MonoBehaviour
     void Start()
     {
         difficulty = MainMenu.difficulty;
+        if(difficulty == "easy")
+            timeMaxForSpawn = 5f;
+        else if(difficulty == "medium")
+            timeMaxForSpawn = 3.5f;
+        else if(difficulty == "hard")
+            timeMaxForSpawn = 1.5f;
     }
 
     // Update is called once per frame
