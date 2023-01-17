@@ -30,8 +30,11 @@ public class SpawnEnemies : MonoBehaviour
     {
         time -= Time.deltaTime;
         
-        if(time < 0)
+        
+
+        if(time < 0 && difficulty == "easy")
         {
+            Debug.Log("mariazinha");
             float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
             Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
 
@@ -40,43 +43,21 @@ public class SpawnEnemies : MonoBehaviour
 
             time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
         }
+        if(difficulty == "medium" && time < 0)
+        {
+            Debug.Log("Spawn OP GUY");
+            
+            
+            float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
+            Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
+            int rand = Random.Range(0,2);
 
-        // if(time < 0 && difficulty == "easy")
-        // {
-        //     float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
-        //     Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
+            GameObject gb = Instantiate(prefab[rand], pos, prefab[rand].transform.rotation) as GameObject;
+            Destroy(gb, 15);
 
-        //     GameObject gb = Instantiate(prefab[0], pos, prefab[0].transform.rotation)  as GameObject;
-        //     Destroy(gb, 15);
+            time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
 
-        //     time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
-        // }
-        // if(difficulty == "medium" || difficulty == "hard")
-        // {
-        //     if(time < 0 && numOfStrongEnemies <= 2)
-        //     {
-        //         float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
-        //         Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
-        //         int rand = Random.Range(0,1);
-
-        //         GameObject gb = Instantiate(prefab[rand], pos, prefab[rand].transform.rotation) as GameObject;
-        //         Destroy(gb, 15);
-
-        //         time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
-
-        //         numOfStrongEnemies += 1;
-        //     }
-        //     else 
-        //     {
-        //         float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
-        //         Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
-
-        //         GameObject gb = Instantiate(prefab[0], pos, prefab[0].transform.rotation)  as GameObject;
-        //         Destroy(gb, 15);
-        //         numOfStrongEnemies -= 1;
-
-        //         time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
-        //     }
-        // }
+            numOfStrongEnemies += 1;
+        }
     }
 }

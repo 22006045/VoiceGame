@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6568032304598197324}
   - component: {fileID: 4662035958448231505}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Score
   m_TagString: score
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 2614520083931344491}
   - component: {fileID: 2614520083931344535}
   - component: {fileID: 2764446729063681424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -228,6 +228,10 @@ PrefabInstance:
     - target: {fileID: 5749892945899594870, guid: 797ee248261f4504f9071cdf2c4300d4, type: 3}
       propertyPath: m_Name
       value: EtherialStreaksTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749892945899594870, guid: 797ee248261f4504f9071cdf2c4300d4, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797ee248261f4504f9071cdf2c4300d4, type: 3}

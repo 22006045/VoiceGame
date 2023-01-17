@@ -12,8 +12,9 @@ public class ShootCube : MonoBehaviour
     private void Start() => StartCoroutine(ShootForward(timeBetweenShots));
     private IEnumerator ShootForward(float nextShot)
     {
-        GameObject b = Instantiate(bullet, shootPos.position, shootPos.rotation) as GameObject;
-        b.GetComponent<Rigidbody>().AddForce(shootPos.forward * bulletSpeed, ForceMode.Impulse);
+        Debug.Log("Shooting Bullet");
+        GameObject b = Instantiate(bullet, shootPos.position, transform.rotation) as GameObject;
+        b.GetComponent<Rigidbody>().AddForce(shootPos.forward * bulletSpeed);
         StartCoroutine(DestroyBullet(b,10f));
         yield return new WaitForSeconds(nextShot);
     }
