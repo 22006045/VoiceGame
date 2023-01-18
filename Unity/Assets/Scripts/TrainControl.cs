@@ -195,7 +195,7 @@ public class TrainControl : MonoBehaviour
             StartCoroutine("Dead");
             DeadAnimation.SetActive(true);
         }
-        if(other.tag == "Bullet" && voice.shieldCount == 1)
+        else if(other.tag == "Bullet" && voice.shieldCount == 1)
         {
             other.GetComponent<SphereCollider>().isTrigger = false;
             Destroy(other.gameObject);
