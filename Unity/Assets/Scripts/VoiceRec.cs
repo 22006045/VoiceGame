@@ -2,6 +2,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.Windows.Speech;
 using System.Linq;
 using TMPro;
@@ -14,7 +15,7 @@ public class VoiceRec : MonoBehaviour
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
     private WordsLives wordsLives;
     [SerializeField] private TextMeshProUGUI text;
-    private string newWord = "coco";
+    private string newWord ;
     private bool loop = true;
     private void Start()
     {
@@ -28,7 +29,7 @@ public class VoiceRec : MonoBehaviour
         actions.Add("Yellow", Yellow);
         actions.Add("Blue", Blue);
         wordsLives = FindObjectOfType<WordsLives>();
-        StartCoroutine(ChangeWord(2));
+        StartCoroutine(ChangeWord(10));
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
@@ -43,10 +44,14 @@ public class VoiceRec : MonoBehaviour
     {
         while(loop)
         {
-            wordsLives.GetNewWord(newWord);
+            int random = Random.Range(0, wordsLives.spaceWords.Length);
+            newWord = wordsLives.spaceWords[random];
             text.text = newWord;
-            Debug.Log(newWord);
-            actions.Add(newWord,NewWordDetected);
+            if(newWord != null)
+            {
+                actions.Add(newWord,NewWordDetected);
+                Debug.Log("Current known words : " + actions);
+            } 
             yield return new WaitForSeconds(repeat);
         }
         

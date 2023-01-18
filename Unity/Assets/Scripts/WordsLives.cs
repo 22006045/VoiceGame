@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WordsLives : MonoBehaviour
 {
-    private string[] spaceWords = {
+    public string[] spaceWords = {
     "spaceship",
     "planet",
     "asteroid",
@@ -117,12 +117,5 @@ public class WordsLives : MonoBehaviour
     "transport",
     "wormhole"
 };
-
-public string GetNewWord(string newWord)
-{
-    int random = Random.Range(0, spaceWords.Length);
-    newWord = spaceWords[random];
-    return newWord;
-}   
 
 }
