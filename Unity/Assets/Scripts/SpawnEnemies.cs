@@ -30,8 +30,6 @@ public class SpawnEnemies : MonoBehaviour
     {
         time -= Time.deltaTime;
         
-        
-
         if(time < 0 && difficulty == "easy")
         {
             float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
@@ -42,11 +40,8 @@ public class SpawnEnemies : MonoBehaviour
 
             time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
         }
-        if(difficulty == "medium" && time < 0)
+        else if(difficulty == "medium" && time < 0)
         {
-            Debug.Log("Spawn OP GUY");
-            
-            
             float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
             Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
             int rand = Random.Range(0,2);
@@ -57,6 +52,19 @@ public class SpawnEnemies : MonoBehaviour
             time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
 
             numOfStrongEnemies += 1;
+        }
+        else if(difficulty == "hard" && time < 0)
+        {       
+            float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
+            Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
+            int rand = Random.Range(0,2);
+
+            GameObject gb = Instantiate(prefab[rand], pos, prefab[rand].transform.rotation) as GameObject;
+            Destroy(gb, 15);
+
+            time = Random.Range(timeMaxForSpawn - timeMaxForSpawn/4, timeMaxForSpawn + timeMaxForSpawn/4);
+
+            numOfStrongEnemies += 2;
         }
     }
 }
