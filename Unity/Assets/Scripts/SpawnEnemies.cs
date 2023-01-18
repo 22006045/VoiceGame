@@ -16,11 +16,11 @@ public class SpawnEnemies : MonoBehaviour
     {
         difficulty = MainMenu.difficulty;
         if(difficulty == "easy")
-            timeMaxForSpawn = 5f;
+            timeMaxForSpawn = 7.5f;
         else if(difficulty == "medium")
-            timeMaxForSpawn = 3.5f;
+            timeMaxForSpawn = 5.5f;
         else if(difficulty == "hard")
-            timeMaxForSpawn = 1.5f;
+            timeMaxForSpawn = 3.5f;
     }
 
    
