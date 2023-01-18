@@ -34,7 +34,6 @@ public class SpawnEnemies : MonoBehaviour
 
         if(time < 0 && difficulty == "easy")
         {
-            Debug.Log("mariazinha");
             float x = possiblePosX[Random.Range(0, possiblePosX.Length)];
             Vector3 pos = new Vector3(x, transform.position.y, transform.position.z);
 
