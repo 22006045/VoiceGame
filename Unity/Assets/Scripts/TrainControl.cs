@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TrainControl : MonoBehaviour
 {
+    private VoiceRec voice;
     [SerializeField] private float speed; 
     [SerializeField] private float posXLineLeft, posXLineMidle, posXLineRight;
     private float atualPosX;
@@ -46,6 +47,7 @@ public class TrainControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        voice = FindObjectOfType<VoiceRec>();
         trainPos = TrainPos.midle;
         forms = Forms.cube;
 
@@ -186,6 +188,20 @@ public class TrainControl : MonoBehaviour
                 StartCoroutine("Dead");
                 DeadAnimation.SetActive(true);
             }
+        }
+        if(other.tag == "Bullet" && voice.shieldCount < 1)
+        {
+            dieSound.Play();
+            dieParticles.Play();
+            StartCoroutine("Dead");
+            DeadAnimation.SetActive(true);
+        }
+        if(other.tag == "Bullet" && voice.shieldCount == 1)
+        {
+            other.GetComponent<SphereCollider>().isTrigger = false;
+            Destroy(other.gameObject);
+            StartCoroutine(voice.ActivateUI(voice.shieldOff, 2f));
+            voice.shieldCount = 0;
         }
 
         if(other.tag == "score")

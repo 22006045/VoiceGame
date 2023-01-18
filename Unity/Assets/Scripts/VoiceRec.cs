@@ -13,6 +13,10 @@ public class VoiceRec : MonoBehaviour
     private KeywordRecognizer keywordRecognizer;
     private TrainControl trainControl;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+
+    public int shieldCount = 0;
+    [SerializeField] private GameObject shieldOn;
+    [SerializeField] public GameObject shieldOff;
     private WordsLives wordsLives;
     [SerializeField] private TextMeshProUGUI text;
     private string newWord ;
@@ -36,10 +40,7 @@ public class VoiceRec : MonoBehaviour
         keywordRecognizer.Start();
 
     }
-    private void Update()
-    {
-        
-    }
+ 
     private IEnumerator ChangeWord(float repeat)
     {
         while(loop)
@@ -50,7 +51,8 @@ public class VoiceRec : MonoBehaviour
             if(newWord != null)
             {
                 actions.Add(newWord,NewWordDetected);
-                Debug.Log("Current known words : " + actions);
+                UpdateKeywordRecognizer();
+                
             } 
             yield return new WaitForSeconds(repeat);
         }
@@ -58,13 +60,47 @@ public class VoiceRec : MonoBehaviour
         
     }
 
+    void UpdateKeywordRecognizer()
+        {
+            if(keywordRecognizer != null )
+            {
+                keywordRecognizer.OnPhraseRecognized -= RecognizedSpeech;
+                keywordRecognizer.Stop();
+                keywordRecognizer.Dispose();
+                keywordRecognizer = null;
+                keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+                keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+                keywordRecognizer.Start();
+            }
+        }
+    public IEnumerator ActivateUI(GameObject UI, float activeDuration)
+    {
+        UI.SetActive(true);
+        yield return new WaitForSeconds(activeDuration);
+        UI.SetActive(false);
+
+    }
+
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
     {
         Debug.Log(speech.text);
+        UpdateKeywordRecognizer();
         actions[speech.text].Invoke();
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Bullet" && shieldCount == 1) StartCoroutine(ActivateUI(shieldOff, 2f));
+        
     }
     private void NewWordDetected()
     {
+        if(shieldCount == 0)
+        {
+            shieldCount = 1;
+            StartCoroutine(ActivateUI(shieldOn, 2f));
+        } 
+        
         Debug.Log("I know what word this is");
     }
 
