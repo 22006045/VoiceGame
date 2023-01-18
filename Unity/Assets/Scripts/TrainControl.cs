@@ -17,8 +17,6 @@ public class TrainControl : MonoBehaviour
     [SerializeField] private ParticleSystem[] textParticles;
     [SerializeField] private ParticleSystem transformParticles;
 
-    [SerializeField] private CartoonFX.CFXR_ParticleText particleTextScript;
-
     public enum TrainPos
     {
         left,
@@ -50,6 +48,7 @@ public class TrainControl : MonoBehaviour
         forms = Forms.cube;
 
         atualPosX = posXLineMidle;
+
     }
 
     // Update is called once per frame
