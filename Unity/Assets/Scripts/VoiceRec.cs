@@ -107,15 +107,15 @@ public class VoiceRec : MonoBehaviour
     private void Sphere()
     {
         Debug.Log("TransformToSphere");
-        trainControl.forms = TrainControl.Forms.sphere;
+        trainControl.GoToSphere();
     }
     private void Cube()
     {
-        trainControl.forms = TrainControl.Forms.cube;
+        trainControl.GoTocube();
     }
     private void Cylinder()
     {
-        trainControl.forms = TrainControl.Forms.cylinder;
+        trainControl.GoToCylinder();
     }
     private void Red()
     {
