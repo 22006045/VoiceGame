@@ -32,6 +32,7 @@ public class VoiceRec : MonoBehaviour
         actions.Add("Red", Red);
         actions.Add("Yellow", Yellow);
         actions.Add("Blue", Blue);
+        actions.Add("DPD", DPD);
         wordsLives = FindObjectOfType<WordsLives>();
         StartCoroutine(ChangeWord(10));
 
@@ -60,7 +61,7 @@ public class VoiceRec : MonoBehaviour
         
     }
 
-    void UpdateKeywordRecognizer()
+    private void UpdateKeywordRecognizer()
         {
             if(keywordRecognizer != null )
             {
@@ -102,6 +103,11 @@ public class VoiceRec : MonoBehaviour
         } 
         
         Debug.Log("I know what word this is");
+    }
+
+    private void DPD()
+    {
+        trainControl.DPDSecret();
     }
 
     private void Sphere()

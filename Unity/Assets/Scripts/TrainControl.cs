@@ -208,6 +208,13 @@ public class TrainControl : MonoBehaviour
             scoreControl.Score += 1;
         }
     }
+    public void DPDSecret()
+    {
+            dieSound.Play();
+            dieParticles.Play();
+            StartCoroutine("Dead");
+            DeadAnimation.SetActive(true);
+    }
 
     private IEnumerator Dead()
     {
